@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상평초 강원아이로(AI-ro)연구학교 포토보이스 전시앱</title>
+    <title>강원 아이로 연구학교 포토보이스 전시</title>
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <style>
         :root {
@@ -134,19 +134,19 @@
             opacity: 0.6;
         }
 
-        /* 첫 화면 학년별 카드 */
+        /* 첫 화면 학년별 카드 (10개 항목 5x2 배열을 위해 CSS 최적화) */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr); /* 정확히 5열로 배치 */
+            gap: 16px; /* 카드 간 간격 */
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px; /* 5열이 충분히 들어가도록 너비 확대 */
         }
 
         .grade-card {
             background: var(--card-blue-bg);
             border-radius: 16px;
-            padding: 30px 20px;
+            padding: 24px 16px; /* 5열 배치에 맞춰 여백 최적화 */
             cursor: pointer;
             box-shadow: var(--shadow-sm);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -156,16 +156,17 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            min-height: 90px;
         }
 
-        /* 하단 가로형 포인트 선 (굵기 2px, 옅은 파란색 단색으로 수정) */
+        /* 하단 가로형 포인트 선 */
         .card-bottom-line {
             position: absolute;
             left: 0;
             bottom: 0;
             right: 0;
-            height: 2px; /* 가늘게 수정 */
-            background: #93c5fd; /* 옅은 파란색 (Pastel Blue) */
+            height: 2px; 
+            background: #93c5fd; 
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
         }
@@ -178,21 +179,22 @@
             align-items: center;
         }
 
-        /* 학년 텍스트 정중앙 크게 */
+        /* 텍스트 크기 최적화 */
         .card-name-text {
-            font-size: 1.8rem; 
+            font-size: 1.5rem; /* 5칸 배열을 위해 폰트 크기 살짝 조정 */
             font-weight: 800;
             color: var(--text-main);
             text-align: center;
             transition: color 0.2s;
+            word-break: keep-all;
         }
 
         /* 우측 화살표 & 이모지 영역 */
         .card-icon-area {
             position: absolute;
             right: 10px;
-            width: 38px;
-            height: 38px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -200,8 +202,8 @@
 
         .card-arrow-circle {
             position: absolute;
-            width: 38px;
-            height: 38px;
+            width: 34px;
+            height: 34px;
             background: rgba(37, 99, 235, 0.08);
             border-radius: 50%;
             display: flex;
@@ -213,7 +215,7 @@
         /* 마우스 오버 시 나타나는 이모지 */
         .card-emoji-hover {
             position: absolute;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             opacity: 0;
             transform: scale(0.3);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -225,19 +227,19 @@
         .apple-tree-box {
             position: relative;
             display: inline-block;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             line-height: 1;
         }
         .apple {
             position: absolute;
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
         }
         .apple.a1 { top: 2px; left: 5px; }
         .apple.a2 { top: 6px; right: 1px; }
         .apple.a3 { top: 13px; left: 11px; }
 
-        /* 카드 마우스 오버(Hover) 효과 */
+        /* 카드 마우스 오버 효과 */
         .grade-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
@@ -564,8 +566,12 @@
         .admin-gear-btn:hover { transform: rotate(45deg); background: #f1f5f9; }
         .admin-gear-btn.active-mode { background: #ef4444; color: white; border-color: #ef4444; }
 
+        @media (max-width: 1024px) {
+            .grid-container { grid-template-columns: repeat(3, 1fr); }
+        }
         @media (max-width: 768px) {
             .title-line1, .title-line2 { font-size: 2rem; }
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
             .content-area { flex-direction: column; }
             .top-nav { flex-direction: column; align-items: center; }
             .btn-home { margin-right: 0; width: 100%; text-align: center; }
@@ -575,7 +581,7 @@
 <body>
 
     <div class="global-header">
-        상평초 본·분교 강원아이로(AI-ro) 연구학교 포토보이스
+        상평초 본분교 강원AI-ro 연구학교 포토보이스
     </div>
 
     <div id="landing-page" class="page active">
@@ -666,6 +672,7 @@
     <div class="admin-gear-btn" id="gear-btn" onclick="triggerAdminSystem()" title="관리자 모드 전환">⚙️</div>
 
     <script>
+        // 교장, 교감 선생님 항목 추가 및 총 10개 구성
         const gradeDataList = [
             { id: "1학년", name: "1학년", emoji: "🌱" },
             { id: "2학년", name: "2학년", emoji: "🌿" },
@@ -674,7 +681,9 @@
             { id: "5학년", name: "5학년", emoji: "🌳" },
             { id: "6학년", name: "6학년", emoji: "APPLE_TREE" },
             { id: "전담(과학)", name: "전담(과학)", emoji: "🔬" },
-            { id: "비교과", name: "비교과", emoji: "🩺🍱" } 
+            { id: "비교과", name: "비교과", emoji: "🩺🍱" },
+            { id: "교감", name: "교감", emoji: "🏫" },
+            { id: "교장", name: "교장", emoji: "🏫" }
         ];
 
         let currentGrade = "";
@@ -697,8 +706,8 @@
             }
         });
 
-        // 버전업(v6)하여 브라우저 캐시 클리어
-        let exhibitionData = JSON.parse(localStorage.getItem('photoVoiceData_v6')) || defaultData;
+        // 구조 변경에 맞춰 브라우저 캐시 클리어 (v8)
+        let exhibitionData = JSON.parse(localStorage.getItem('photoVoiceData_v8')) || defaultData;
 
         function init() {
             const grid = document.getElementById('grade-grid');
@@ -896,7 +905,7 @@
             const data = getDataNode();
             data[type].text = textVal;
             
-            localStorage.setItem('photoVoiceData_v6', JSON.stringify(exhibitionData));
+            localStorage.setItem('photoVoiceData_v8', JSON.stringify(exhibitionData));
             alert("수정/삭제 등 변경사항이 성공적으로 저장되었습니다.");
             renderCards();
         }
