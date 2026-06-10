@@ -33,6 +33,29 @@
             overflow-x: hidden;
         }
 
+        /* 데이터 로딩 오버레이 */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+
+        .spinner {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         /* 좌측 상단 고정 헤더 */
         .global-header {
             position: fixed;
@@ -134,19 +157,19 @@
             opacity: 0.6;
         }
 
-        /* 첫 화면 학년별 카드 (10개 항목 5x2 배열을 위해 CSS 최적화) */
+        /* 첫 화면 직책/학년별 카드 (10개 항목 5x2 배열) */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 정확히 5열로 배치 */
-            gap: 16px; /* 카드 간 간격 */
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
             width: 100%;
-            max-width: 1300px; /* 5열이 충분히 들어가도록 너비 확대 */
+            max-width: 1300px;
         }
 
         .grade-card {
             background: var(--card-blue-bg);
             border-radius: 16px;
-            padding: 24px 16px; /* 5열 배치에 맞춰 여백 최적화 */
+            padding: 24px 16px;
             cursor: pointer;
             box-shadow: var(--shadow-sm);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -159,7 +182,7 @@
             min-height: 90px;
         }
 
-        /* 하단 가로형 포인트 선 */
+        /* 하단 가로형 포인트 선 (굵기 2px, 옅은 파란색 단색) */
         .card-bottom-line {
             position: absolute;
             left: 0;
@@ -179,9 +202,8 @@
             align-items: center;
         }
 
-        /* 텍스트 크기 최적화 */
         .card-name-text {
-            font-size: 1.5rem; /* 5칸 배열을 위해 폰트 크기 살짝 조정 */
+            font-size: 1.5rem; 
             font-weight: 800;
             color: var(--text-main);
             text-align: center;
@@ -189,7 +211,6 @@
             word-break: keep-all;
         }
 
-        /* 우측 화살표 & 이모지 영역 */
         .card-icon-area {
             position: absolute;
             right: 10px;
@@ -212,7 +233,6 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 마우스 오버 시 나타나는 이모지 */
         .card-emoji-hover {
             position: absolute;
             font-size: 1.6rem;
@@ -239,7 +259,6 @@
         .apple.a2 { top: 6px; right: 1px; }
         .apple.a3 { top: 13px; left: 11px; }
 
-        /* 카드 마우스 오버 효과 */
         .grade-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
@@ -247,19 +266,9 @@
             border-color: #93c5fd; 
         }
 
-        .grade-card:hover .card-name-text {
-            color: var(--primary-blue);
-        }
-
-        .grade-card:hover .card-arrow-circle {
-            opacity: 0;
-            transform: scale(0.3);
-        }
-
-        .grade-card:hover .card-emoji-hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
+        .grade-card:hover .card-name-text { color: var(--primary-blue); }
+        .grade-card:hover .card-arrow-circle { opacity: 0; transform: scale(0.3); }
+        .grade-card:hover .card-emoji-hover { opacity: 1; transform: scale(1.1); }
 
         /* 상세 페이지 상단 네비게이션 */
         .top-nav {
@@ -476,6 +485,7 @@
             width: 100%;
             color: var(--text-main);
             word-break: keep-all;
+            overflow-y: auto;
         }
 
         .tts-btn {
@@ -580,11 +590,17 @@
 </head>
 <body>
 
+    <!-- Firebase 데이터 로딩 화면 -->
+    <div id="loading-screen">
+        <div class="spinner">⏳</div>
+        <div>클라우드 전시관에 연결 중입니다...</div>
+    </div>
+
     <div class="global-header">
         상평초 본분교 강원AI-ro 연구학교 포토보이스
     </div>
 
-    <div id="landing-page" class="page active">
+    <div id="landing-page" class="page">
         <div class="hero-camera-container">📸</div>
         <div class="pv-badge">PHOTOVOICE · 사진으로 말하다 (2025-2026)</div>
 
@@ -597,7 +613,8 @@
         <hr class="title-divider">
 
         <div class="grid-container" id="grade-grid">
-            </div>
+            <!-- JS 동적 생성 영역 -->
+        </div>
     </div>
 
     <div id="detail-page" class="page">
@@ -631,13 +648,13 @@
                         <div class="flip-card-back">
                             <div class="reflection-text" id="pre-text"></div>
                             <div class="edit-controls" onclick="event.stopPropagation()">
-                                <label style="font-size:0.9rem; color:var(--text-muted); text-align:left; width:100%;">📷 이미지 수정/업로드:</label>
+                                <label style="font-size:0.9rem; color:var(--text-muted); text-align:left; width:100%;">📷 이미지 업로드 (서버 연동):</label>
                                 <div class="image-action-bar">
                                     <input type="file" accept="image/*" onchange="uploadImage('pre', this)" style="flex:1; font-size:0.9rem;">
                                     <button class="delete-btn" onclick="deleteImage('pre')">🗑️ 삭제</button>
                                 </div>
                                 <textarea id="pre-input" placeholder="소감을 입력해 주세요..."></textarea>
-                                <button class="save-btn" onclick="saveData('pre')">💾 텍스트/이미지 변경사항 저장</button>
+                                <button class="save-btn" onclick="saveData('pre')">💾 텍스트/이미지 서버에 저장</button>
                             </div>
                             <button class="tts-btn" onclick="speakText('pre', event)">🔈 음성으로 읽어주기</button>
                         </div>
@@ -653,13 +670,13 @@
                         <div class="flip-card-back">
                             <div class="reflection-text" id="post-text"></div>
                             <div class="edit-controls" onclick="event.stopPropagation()">
-                                <label style="font-size:0.9rem; color:var(--text-muted); text-align:left; width:100%;">📷 이미지 수정/업로드:</label>
+                                <label style="font-size:0.9rem; color:var(--text-muted); text-align:left; width:100%;">📷 이미지 업로드 (서버 연동):</label>
                                 <div class="image-action-bar">
                                     <input type="file" accept="image/*" onchange="uploadImage('post', this)" style="flex:1; font-size:0.9rem;">
                                     <button class="delete-btn" onclick="deleteImage('post')">🗑️ 삭제</button>
                                 </div>
                                 <textarea id="post-input" placeholder="소감을 입력해 주세요..."></textarea>
-                                <button class="save-btn" onclick="saveData('post')">💾 텍스트/이미지 변경사항 저장</button>
+                                <button class="save-btn" onclick="saveData('post')">💾 텍스트/이미지 서버에 저장</button>
                             </div>
                             <button class="tts-btn" onclick="speakText('post', event)">🔈 음성으로 읽어주기</button>
                         </div>
@@ -671,8 +688,28 @@
 
     <div class="admin-gear-btn" id="gear-btn" onclick="triggerAdminSystem()" title="관리자 모드 전환">⚙️</div>
 
-    <script>
-        // 교장, 교감 선생님 항목 추가 및 총 10개 구성
+    <!-- Firebase v9 모듈 스크립트 설정 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        // 선생님의 파이어베이스 Config 값
+        const firebaseConfig = {
+            apiKey: "AIzaSyDH0Juuc6OpXFaVQCkVS-FojASE25O9zvs",
+            authDomain: "photovoice-b7c20.firebaseapp.com",
+            projectId: "photovoice-b7c20",
+            storageBucket: "photovoice-b7c20.firebasestorage.app",
+            messagingSenderId: "745117733198",
+            appId: "1:745117733198:web:79233ce4f8ae75839bce1f"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // 총 10개 항목 구성 (교감, 교장 포함)
         const gradeDataList = [
             { id: "1학년", name: "1학년", emoji: "🌱" },
             { id: "2학년", name: "2학년", emoji: "🌿" },
@@ -706,10 +743,32 @@
             }
         });
 
-        // 구조 변경에 맞춰 브라우저 캐시 클리어 (v8)
-        let exhibitionData = JSON.parse(localStorage.getItem('photoVoiceData_v8')) || defaultData;
+        let exhibitionData = {};
 
-        function init() {
+        // 파이어베이스에서 데이터 불러오기
+        async function loadDataFromFirebase() {
+            try {
+                const docRef = doc(db, "exhibition", "photovoiceData");
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    exhibitionData = docSnap.data();
+                } else {
+                    exhibitionData = defaultData;
+                    await setDoc(docRef, exhibitionData); // 최초 실행 시 문서 생성
+                }
+            } catch (error) {
+                console.error("데이터베이스 연결 실패:", error);
+                exhibitionData = defaultData; 
+            } finally {
+                // 로딩 화면을 숨기고 메인 페이지를 보여줌
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('landing-page').classList.add('active');
+                initUI();
+            }
+        }
+
+        function initUI() {
             const grid = document.getElementById('grade-grid');
             const nav = document.getElementById('grade-nav-container');
             
@@ -718,7 +777,7 @@
                 card.className = 'grade-card';
                 
                 let emojiMarkup = "";
-                // 6학년 다중 사과나무 이모지
+                // 6학년 사과나무 이모지
                 if(item.emoji === "APPLE_TREE") {
                     emojiMarkup = `<div class="apple-tree-box">🌳<span class="apple a1">🍎</span><span class="apple a2">🍎</span><span class="apple a3">🍎</span></div>`;
                 } else {
@@ -737,25 +796,26 @@
                         </div>
                     </div>
                 `;
-                card.onclick = () => openDetail(item.id);
+                card.onclick = () => window.openDetail(item.id);
                 grid.appendChild(card);
 
                 const navBtn = document.createElement('button');
                 navBtn.className = 'nav-btn';
                 navBtn.id = `nav-${item.id}`;
                 navBtn.innerText = item.name;
-                navBtn.onclick = () => openDetail(item.id);
+                navBtn.onclick = () => window.openDetail(item.id);
                 nav.appendChild(navBtn);
             });
         }
 
-        function goHome() {
+        // 전역 스코프(window)에 함수 등록 (HTML onClick에서 호출하기 위함)
+        window.goHome = function() {
             document.getElementById('detail-page').classList.remove('active');
             document.getElementById('landing-page').classList.add('active');
             window.speechSynthesis.cancel();
         }
 
-        function openDetail(gradeId) {
+        window.openDetail = function(gradeId) {
             currentGrade = gradeId;
             document.getElementById('landing-page').classList.remove('active');
             document.getElementById('detail-page').classList.add('active');
@@ -769,7 +829,7 @@
                 document.getElementById('detail-title').innerText = `${gradeId} 선생님의 연구 소감`;
             }
 
-            setYear(1);
+            window.setYear(1);
 
             gradeDataList.forEach(item => {
                 const target = document.getElementById(`nav-${item.id}`);
@@ -778,7 +838,7 @@
             window.scrollTo(0, 0);
         }
 
-        function setSubCategory(subType) {
+        window.setSubCategory = function(subType) {
             currentSubCategory = subType;
             document.getElementById('sub-cat-health').classList.toggle('active', subType === '보건');
             document.getElementById('sub-cat-nutrition').classList.toggle('active', subType === '영양');
@@ -787,7 +847,7 @@
             renderCards();
         }
 
-        function setYear(year) {
+        window.setYear = function(year) {
             currentYear = year;
             document.getElementById('tab-year1').classList.toggle('active', year === 1);
             document.getElementById('tab-year2').classList.toggle('active', year === 2);
@@ -833,12 +893,12 @@
             });
         }
 
-        function toggleFlip(element, event) {
+        window.toggleFlip = function(element, event) {
             if(isAdmin && event.target.closest('.edit-controls')) return; 
             element.classList.toggle('flipped');
         }
 
-        function speakText(type, event) {
+        window.speakText = function(type, event) {
             event.stopPropagation();
             const data = getDataNode();
             const text = data[type].text;
@@ -853,7 +913,7 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        function triggerAdminSystem() {
+        window.triggerAdminSystem = function() {
             const gearBtn = document.getElementById('gear-btn');
             
             if (isAdmin) {
@@ -880,37 +940,61 @@
             }
         }
 
-        function uploadImage(type, inputElem) {
+        // 스토리지에 실제 파일 업로드 및 URL 받아오기
+        window.uploadImage = async function(type, inputElem) {
             const file = inputElem.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const data = getDataNode();
-                    data[type].img = e.target.result;
-                    renderCards(); 
-                };
-                reader.readAsDataURL(file);
+            if (!file) return;
+
+            alert("사진을 클라우드 서버로 업로드합니다. 잠시만 기다려주세요...");
+            
+            try {
+                // 고유한 파일명 생성 (예: images/1학년_pre_1638210382.jpg)
+                const filename = `images/${currentGrade}_${currentSubCategory}_${currentYear}_${type}_${Date.now()}`;
+                const storageRef = ref(storage, filename);
+                
+                // 업로드 실행
+                const snapshot = await uploadBytes(storageRef, file);
+                
+                // 업로드된 이미지의 다운로드 URL 가져오기
+                const downloadURL = await getDownloadURL(snapshot.ref);
+                
+                const data = getDataNode();
+                data[type].img = downloadURL;
+                renderCards(); 
+                
+                alert("✅ 업로드 완료! 반드시 하단의 [텍스트/이미지 변경사항 전체 저장] 버튼을 눌러야 완전히 반영됩니다.");
+            } catch (error) {
+                console.error("업로드 에러:", error);
+                alert("사진 업로드 중 오류가 발생했습니다.");
             }
         }
 
-        function deleteImage(type) {
-            if(!confirm("등록된 이미지를 삭제하시겠습니까?")) return;
+        window.deleteImage = function(type) {
+            if(!confirm("등록된 이미지를 삭제하시겠습니까? (삭제 후 '저장'을 눌러야 반영됩니다)")) return;
             const data = getDataNode();
             data[type].img = ""; 
             renderCards(); 
         }
 
-        function saveData(type) {
+        // Firestore에 데이터베이스 최종 저장
+        window.saveData = async function(type) {
             const textVal = document.getElementById(`${type}-input`).value;
             const data = getDataNode();
             data[type].text = textVal;
             
-            localStorage.setItem('photoVoiceData_v8', JSON.stringify(exhibitionData));
-            alert("수정/삭제 등 변경사항이 성공적으로 저장되었습니다.");
-            renderCards();
+            try {
+                const docRef = doc(db, "exhibition", "photovoiceData");
+                await setDoc(docRef, exhibitionData); // DB 덮어쓰기
+                alert("구글 클라우드 서버에 데이터가 성공적으로 저장 및 동기화되었습니다.");
+                renderCards();
+            } catch (error) {
+                console.error("저장 에러:", error);
+                alert("데이터 저장 중 오류가 발생했습니다.");
+            }
         }
 
-        init();
+        // 웹앱 실행 시 파이어베이스 통신 시작
+        window.onload = loadDataFromFirebase;
     </script>
 </body>
 </html>
