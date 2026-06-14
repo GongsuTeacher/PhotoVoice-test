@@ -46,6 +46,8 @@
             font-size: 1.5rem;
             color: var(--primary-blue);
             font-weight: 800;
+            text-align: center;
+            padding: 20px;
         }
 
         .spinner {
@@ -56,6 +58,25 @@
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
+        #loading-retry {
+            display: none;
+            margin-top: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        #loading-retry button {
+            margin-top: 12px;
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--primary-blue);
+            background: var(--primary-blue);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* 좌측 상단 고정 헤더 */
         .global-header {
             position: fixed;
             top: 20px;
@@ -89,6 +110,7 @@
             padding-top: 80px;
         }
 
+        /* 타이틀 및 카메라 배지 */
         .hero-camera-container {
             font-size: 4.5rem;
             margin-bottom: 10px;
@@ -155,7 +177,7 @@
             opacity: 0.6;
         }
 
-        /* 12개 항목 6칸씩 2줄 배열로 최적화 */
+        /* 첫 화면 직책/학년별 카드 (12개 항목) */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -167,7 +189,7 @@
         .grade-card {
             background: var(--card-blue-bg);
             border-radius: 16px;
-            padding: 24px 12px;
+            padding: 24px 16px;
             cursor: pointer;
             box-shadow: var(--shadow-sm);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -177,9 +199,10 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            min-height: 95px;
+            min-height: 90px;
         }
 
+        /* 하단 가로형 포인트 선 */
         .card-bottom-line {
             position: absolute;
             left: 0;
@@ -200,7 +223,7 @@
         }
 
         .card-name-text {
-            font-size: 1.35rem; 
+            font-size: 1.4rem; 
             font-weight: 800;
             color: var(--text-main);
             text-align: center;
@@ -210,9 +233,9 @@
 
         .card-icon-area {
             position: absolute;
-            right: 5px;
-            width: 32px;
-            height: 32px;
+            right: 6px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -220,8 +243,8 @@
 
         .card-arrow-circle {
             position: absolute;
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             background: rgba(37, 99, 235, 0.08);
             border-radius: 50%;
             display: flex;
@@ -240,6 +263,7 @@
             white-space: nowrap;
         }
 
+        /* 6학년 다중 사과나무 이모지 커스텀 */
         .apple-tree-box {
             position: relative;
             display: inline-block;
@@ -266,6 +290,7 @@
         .grade-card:hover .card-arrow-circle { opacity: 0; transform: scale(0.3); }
         .grade-card:hover .card-emoji-hover { opacity: 1; transform: scale(1.1); }
 
+        /* 상세 페이지 상단 네비게이션 */
         .top-nav {
             display: flex;
             justify-content: flex-end;
@@ -273,7 +298,7 @@
             width: 100%;
             max-width: 1200px;
             margin-bottom: 30px;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
@@ -298,21 +323,21 @@
             flex-wrap: wrap;
             background: white;
             padding: 6px;
-            border-radius: 50px;
+            border-radius: 24px;
             box-shadow: var(--shadow-sm);
             border: 1px solid #edf2f7;
-            justify-content: center;
         }
 
         .nav-btn {
-            padding: 8px 12px;
+            padding: 10px 18px;
             border-radius: 50px;
             border: none;
             background: transparent;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 1.05rem;
+            font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
+            transition: 0.15s;
         }
         .nav-btn:hover { color: var(--primary-blue); background: var(--light-blue); }
         .nav-btn.active { background: var(--primary-blue); color: white; }
@@ -385,6 +410,7 @@
             50% { transform: translateY(-6px); }
         }
 
+        /* 상세 페이지 카드 영역 */
         .content-area {
             display: flex;
             gap: 40px;
@@ -501,6 +527,7 @@
         }
         .tts-btn:hover { background: var(--primary-blue); color: white; }
 
+        /* 편집 폼 & 삭제 버튼 스타일 */
         .edit-controls { display: none; width: 100%; flex-direction: column; gap: 10px; height: 100%; }
         .edit-mode .edit-controls { display: flex; }
         .edit-mode .tts-btn { display: none; }
@@ -550,6 +577,143 @@
             font-weight: 700;
         }
 
+        /* ===== 관람 소감(댓글) 섹션 ===== */
+        .comment-section {
+            width: 100%;
+            max-width: 1000px;
+            margin: 55px auto 0;
+            padding: 30px;
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .comment-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comment-count-badge { color: var(--primary-blue); font-size: 1.2rem; }
+        .comment-form {
+            background: var(--card-blue-bg);
+            border: 1px solid #e2eaf8;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 24px;
+        }
+        .comment-name-input {
+            width: 220px;
+            max-width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d8e2f3;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        .comment-name-input:focus { border-color: var(--primary-blue); }
+        .emoji-bar { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+        .emoji-bar button {
+            background: #fff;
+            border: 1px solid #e2eaf8;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: .15s;
+            line-height: 1;
+        }
+        .emoji-bar button:hover { background: var(--light-blue); transform: translateY(-2px); }
+        .comment-textarea {
+            width: 100%;
+            min-height: 84px;
+            padding: 12px;
+            border: 1px solid #d8e2f3;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            resize: vertical;
+            outline: none;
+            font-family: inherit;
+            flex-grow: 0;
+        }
+        .comment-textarea:focus { border-color: var(--primary-blue); }
+        .comment-form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            gap: 12px;
+        }
+        .char-count { font-size: 0.9rem; color: var(--text-muted); white-space: nowrap; }
+        .comment-submit {
+            background: var(--primary-blue);
+            color: #fff;
+            border: none;
+            padding: 11px 28px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: .2s;
+            white-space: nowrap;
+        }
+        .comment-submit:hover { background: #1d4ed8; }
+        .comment-list { display: flex; flex-direction: column; gap: 14px; }
+        .comment-empty { text-align: center; color: var(--text-muted); padding: 26px; font-size: 1.05rem; }
+        .comment-item {
+            background: #fff;
+            border: 1px solid #edf2f7;
+            border-radius: 12px;
+            padding: 16px 18px;
+            text-align: left;
+        }
+        .comment-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+        .comment-name { font-weight: 800; color: var(--text-main); font-size: 1.05rem; }
+        .comment-time { font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+        .comment-text { font-size: 1.1rem; line-height: 1.6; color: var(--text-main); word-break: break-word; white-space: pre-wrap; }
+        .comment-actions { display: flex; gap: 8px; margin-top: 12px; }
+        .comment-actions button {
+            background: #f1f5f9;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: .15s;
+        }
+        .comment-actions button:hover { background: #e2e8f0; color: var(--text-main); }
+        .comment-actions .c-del:hover { background: #fee2e2; color: #dc2626; }
+        .comment-edit-area {
+            width: 100%;
+            min-height: 72px;
+            padding: 10px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 8px;
+            font-size: 1.05rem;
+            resize: vertical;
+            outline: none;
+            font-family: inherit;
+        }
+        .comment-edit-actions { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+        .comment-edit-actions .c-save { background: #10b981; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .comment-edit-actions .c-cancel { background: #e2e8f0; color: var(--text-main); border: none; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .comment-edit-actions .edit-count { font-size: 0.85rem; color: var(--text-muted); margin-left: auto; }
+
+        /* 우측 하단 고정 톱니바퀴 */
         .admin-gear-btn {
             position: fixed;
             bottom: 25px;
@@ -571,131 +735,18 @@
         .admin-gear-btn:hover { transform: rotate(45deg); background: #f1f5f9; }
         .admin-gear-btn.active-mode { background: #ef4444; color: white; border-color: #ef4444; }
 
-        /* 댓글 영역 스타일 */
-        .comment-section {
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 60px;
-            background: white;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid #e2e8f0;
-        }
-        .comment-section h3 {
-            margin-top: 0;
-            color: var(--primary-blue);
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .comment-input-area {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #edf2f7;
-        }
-        .comment-input-area input {
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1rem;
-            flex: 1;
-            min-width: 200px;
-        }
-        .comment-input-area textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            resize: vertical;
-            min-height: 90px;
-        }
-        .comment-input-area textarea:focus, .comment-input-area input:focus {
-            border-color: var(--primary-blue);
-            outline: none;
-        }
-        .comment-submit-btn {
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: auto;
-            transition: 0.2s;
-        }
-        .comment-submit-btn:hover { background: #1d4ed8; }
-        
-        .comment-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .comment-item {
-            background: var(--card-blue-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #e2eaf8;
-            position: relative;
-        }
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-        .comment-author {
-            font-weight: 800;
-            color: var(--text-main);
-            font-size: 1.1rem;
-        }
-        .comment-text {
-            font-size: 1.15rem;
-            line-height: 1.6;
-            word-break: break-all;
-            color: var(--text-main);
-        }
-        .comment-actions {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-        }
-        .comment-btn {
-            background: transparent;
-            border: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #94a3b8;
-            cursor: pointer;
-            padding: 0;
-        }
-        .comment-btn:hover { color: var(--primary-blue); text-decoration: underline; }
-
         @media (max-width: 1200px) {
             .grid-container { grid-template-columns: repeat(4, 1fr); }
         }
+        @media (max-width: 1024px) {
+            .grid-container { grid-template-columns: repeat(3, 1fr); }
+        }
         @media (max-width: 768px) {
             .title-line1, .title-line2 { font-size: 2rem; }
-            .grid-container { grid-template-columns: repeat(3, 1fr); }
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
             .content-area { flex-direction: column; }
             .top-nav { flex-direction: column; align-items: center; }
             .btn-home { margin-right: 0; width: 100%; text-align: center; }
-        }
-        @media (max-width: 480px) {
-            .grid-container { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -704,6 +755,10 @@
     <div id="loading-screen">
         <div class="spinner">⏳</div>
         <div>클라우드 전시관에 연결 중입니다...</div>
+        <div id="loading-retry">
+            연결이 지연되고 있습니다. 네트워크 상태를 확인해 주세요.<br>
+            <button onclick="location.reload()">새로고침</button>
+        </div>
     </div>
 
     <div class="global-header">
@@ -734,8 +789,7 @@
 
         <h1 id="detail-title" style="font-size: 2.2rem; margin: 10px 0 15px 0;">학년</h1>
 
-        <div class="sub-category-container" id="sub-category-area">
-            </div>
+        <div class="sub-category-container" id="sub-category-area"></div>
 
         <div class="tab-container">
             <button class="tab-btn active" onclick="setYear(1)" id="tab-year1">1년차</button>
@@ -793,15 +847,19 @@
         </div>
 
         <div class="comment-section">
-            <h3>💬 선생님들께 응원의 댓글을 남겨주세요</h3>
-            <div class="comment-input-area">
-                <input type="text" id="comment-author" placeholder="작성자 (이름/닉네임)" maxlength="20">
-                <input type="password" id="comment-password" placeholder="비밀번호 (수정/삭제용 4자리 이상)" maxlength="20">
-                <textarea id="comment-text" maxlength="300" placeholder="따뜻한 응원 글을 남겨주세요! (최대 300자, 키보드 이모티콘 😊 사용 가능)"></textarea>
-                <button class="comment-submit-btn" onclick="addComment()">등록하기</button>
-            </div>
-            <div id="comment-list" class="comment-list">
+            <h2 class="comment-title">💬 관람 소감 <span class="comment-count-badge">(<span id="comment-count">0</span>)</span></h2>
+            <div class="comment-form">
+                <input type="text" id="comment-name" class="comment-name-input" placeholder="이름 (선택)" maxlength="20">
+                <div class="emoji-bar" id="emoji-bar"></div>
+                <textarea id="comment-input" class="comment-textarea" maxlength="300"
+                    placeholder="포토보이스를 보고 느낀 점을 남겨주세요. (300자 이내, 이모티콘 가능)"
+                    oninput="updateCharCount()"></textarea>
+                <div class="comment-form-footer">
+                    <span class="char-count"><span id="char-now">0</span> / 300</span>
+                    <button class="comment-submit" onclick="submitComment()">소감 남기기</button>
                 </div>
+            </div>
+            <div class="comment-list" id="comment-list"></div>
         </div>
     </div>
 
@@ -809,9 +867,12 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc,
+                 collection, addDoc, query, where, onSnapshot,
+                 updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
+        // 선생님의 파이어베이스 Config 값
         const firebaseConfig = {
             apiKey: "AIzaSyDH0Juuc6OpXFaVQCkVS-FojASE25O9zvs",
             authDomain: "photovoice-b7c20.firebaseapp.com",
@@ -821,11 +882,13 @@
             appId: "1:745117733198:web:79233ce4f8ae75839bce1f"
         };
 
+        // Firebase 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        // 총 12개 항목 구성 (공수전분교, 오색분교 추가)
+        // ===== 항목 구성 =====
+        // 확정된 이모지 디테일 반영
         const gradeDataList = [
             { id: "1학년", name: "1학년", emoji: "🌱" },
             { id: "2학년", name: "2학년", emoji: "🌿" },
@@ -834,64 +897,104 @@
             { id: "5학년", name: "5학년", emoji: "🌳" },
             { id: "6학년", name: "6학년", emoji: "APPLE_TREE" },
             { id: "전담(과학)", name: "전담(과학)", emoji: "🔬" },
-            { id: "비교과", name: "비교과", emoji: "🩺🍱" },
-            { id: "공수전분교", name: "공수전분교", emoji: "🏫" },
-            { id: "오색분교", name: "오색분교", emoji: "🏫" },
-            { id: "교감", name: "교감", emoji: "🏫" },
-            { id: "교장", name: "교장", emoji: "🏫" }
+            { id: "비교과", name: "비교과", emoji: "🩺🍱",
+              subs: [ { key: "보건", label: "🩺 보건교사 소감" }, { key: "영양", label: "🥗 영양교사 소감" } ] },
+            { id: "교감", name: "교감", emoji: "🕴️" },
+            { id: "교장", name: "교장", emoji: "👨🏻‍💼" },
+            { id: "공수전분교", name: "공수전분교", emoji: "🏫",
+              subs: [ { key: "교사A", label: "👨🏻‍🏫 교사 A" }, { key: "교사B", label: "👨🏻‍🏫 교사 B" } ] },
+            { id: "오색분교", name: "오색분교", emoji: "🏤",
+              subs: [ { key: "교사A", label: "👨🏻‍🏫 교사 A" }, { key: "교사B", label: "👩🏻‍🏫 교사 B" } ] }
         ];
 
-        // 서브 카테고리를 갖는 항목들 정의
-        const subCategoryTypes = {
-            "비교과": ["보건", "영양"],
-            "공수전분교": ["교사A", "교사B"],
-            "오색분교": ["교사A", "교사B"]
-        };
+        // 댓글 입력란 빠른 이모티콘
+        const EMOJIS = ["😊","👍","❤️","🎉","👏","🌟","😍","🙌","✨","💙","🥰","😂"];
 
         let currentGrade = "";
         let currentSubCategory = "";
         let currentYear = 1;
         let isAdmin = false;
 
+        let exhibitionData = {};
         let defaultData = {};
+
+        // 댓글 관련 상태
+        let commentsUnsub = null;     // onSnapshot 해제 함수
+        let currentComments = [];     // 현재 화면 댓글 목록
+        let editingCommentId = null;  // 수정 중인 댓글
+        let editingDraft = "";        // 수정 중 텍스트(재렌더 대비)
+
+        // 방문자 고유 ID (작성자 본인 식별용)
+        function getVisitorId() {
+            let id = null;
+            try { id = localStorage.getItem("pv_visitor_id"); } catch(e) {}
+            if (!id) {
+                id = "v_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+                try { localStorage.setItem("pv_visitor_id", id); } catch(e) {}
+            }
+            return id;
+        }
+        const visitorId = getVisitorId();
+
+        // 기본 데이터 골격 생성
+        function blankYear() {
+            return {
+                1: { pre: { img: "", text: "" }, post: { img: "", text: "" } },
+                2: { pre: { img: "", text: "" }, post: { img: "", text: "" } }
+            };
+        }
         gradeDataList.forEach(item => {
-            if (subCategoryTypes[item.id]) {
+            if (item.subs) {
                 defaultData[item.id] = {};
-                subCategoryTypes[item.id].forEach(sub => {
-                    defaultData[item.id][sub] = {
-                        1: { pre: { img: "", text: "" }, post: { img: "", text: "" }, comments: [] },
-                        2: { pre: { img: "", text: "" }, post: { img: "", text: "" }, comments: [] }
-                    };
-                });
+                item.subs.forEach(s => { defaultData[item.id][s.key] = blankYear(); });
             } else {
-                defaultData[item.id] = {
-                    1: { pre: { img: "", text: "" }, post: { img: "", text: "" }, comments: [] },
-                    2: { pre: { img: "", text: "" }, post: { img: "", text: "" }, comments: [] }
-                };
+                defaultData[item.id] = blankYear();
             }
         });
 
-        let exhibitionData = {};
+        // 불러온 데이터에 빠진 항목이 있으면 골격을 채워 넣음(신규 학년 추가 시 안전)
+        function ensureStructure() {
+            gradeDataList.forEach(item => {
+                if (!exhibitionData[item.id]) exhibitionData[item.id] = {};
+                if (item.subs) {
+                    item.subs.forEach(s => {
+                        if (!exhibitionData[item.id][s.key]) exhibitionData[item.id][s.key] = {};
+                        [1, 2].forEach(y => {
+                            if (!exhibitionData[item.id][s.key][y]) exhibitionData[item.id][s.key][y] = { pre: { img: "", text: "" }, post: { img: "", text: "" } };
+                        });
+                    });
+                } else {
+                    [1, 2].forEach(y => {
+                        if (!exhibitionData[item.id][y]) exhibitionData[item.id][y] = { pre: { img: "", text: "" }, post: { img: "", text: "" } };
+                    });
+                }
+            });
+        }
 
+        // 파이어베이스에서 데이터 불러오기
         async function loadDataFromFirebase() {
+            // 안전장치: 8초 내 응답 없으면 안내 버튼 노출
+            const retryTimer = setTimeout(() => {
+                const r = document.getElementById('loading-retry');
+                if (r) r.style.display = 'block';
+            }, 8000);
+
             try {
                 const docRef = doc(db, "exhibition", "photovoiceData");
                 const docSnap = await getDoc(docRef);
-                
+
                 if (docSnap.exists()) {
                     exhibitionData = docSnap.data();
-                    // 기존 데이터에 새로 추가된 구조(공수전, 오색 등)가 없다면 자동 병합
-                    gradeDataList.forEach(item => {
-                        if (!exhibitionData[item.id]) exhibitionData[item.id] = defaultData[item.id];
-                    });
                 } else {
                     exhibitionData = defaultData;
-                    await setDoc(docRef, exhibitionData); 
+                    await setDoc(docRef, exhibitionData); // 최초 실행 시 문서 생성
                 }
             } catch (error) {
                 console.error("데이터베이스 연결 실패:", error);
-                exhibitionData = defaultData; 
+                exhibitionData = defaultData;
             } finally {
+                clearTimeout(retryTimer);
+                ensureStructure();
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('landing-page').classList.add('active');
                 initUI();
@@ -901,13 +1004,15 @@
         function initUI() {
             const grid = document.getElementById('grade-grid');
             const nav = document.getElementById('grade-nav-container');
-            
+            grid.innerHTML = "";
+            nav.innerHTML = "";
+
             gradeDataList.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'grade-card';
-                
+
                 let emojiMarkup = "";
-                if(item.emoji === "APPLE_TREE") {
+                if (item.emoji === "APPLE_TREE") {
                     emojiMarkup = `<div class="apple-tree-box">🌳<span class="apple a1">🍎</span><span class="apple a2">🍎</span><span class="apple a3">🍎</span></div>`;
                 } else {
                     emojiMarkup = `<span>${item.emoji}</span>`;
@@ -935,64 +1040,84 @@
                 navBtn.onclick = () => window.openDetail(item.id);
                 nav.appendChild(navBtn);
             });
+
+            // 이모티콘 빠른 입력 바
+            const emojiBar = document.getElementById('emoji-bar');
+            emojiBar.innerHTML = EMOJIS.map(e => `<button type="button" onclick="insertEmoji('${e}')">${e}</button>`).join("");
         }
 
-        window.goHome = function() {
+        function getCurrentItem() { return gradeDataList.find(g => g.id === currentGrade); }
+
+        // ===== 페이지 전환 =====
+        window.goHome = function () {
             document.getElementById('detail-page').classList.remove('active');
             document.getElementById('landing-page').classList.add('active');
+            if (commentsUnsub) { commentsUnsub(); commentsUnsub = null; }
             window.speechSynthesis.cancel();
-        }
+        };
 
-        window.openDetail = function(gradeId) {
+        window.openDetail = function (gradeId) {
             currentGrade = gradeId;
             document.getElementById('landing-page').classList.remove('active');
             document.getElementById('detail-page').classList.add('active');
-            
+
+            const item = getCurrentItem();
             const subArea = document.getElementById('sub-category-area');
-            if (subCategoryTypes[gradeId]) {
+            if (item && item.subs) {
+                currentSubCategory = item.subs[0].key;
+                renderSubButtons(item);
                 subArea.style.display = 'flex';
-                const subs = subCategoryTypes[gradeId];
-                subArea.innerHTML = subs.map((sub, index) => 
-                    `<button class="sub-cat-btn ${index === 0 ? 'active' : ''}" id="sub-cat-${sub}" onclick="setSubCategory('${sub}')">${sub} 연구 소감</button>`
-                ).join('');
-                currentSubCategory = subs[0];
-                document.getElementById('detail-title').innerText = `${gradeId} (${currentSubCategory}) 연구 소감`;
             } else {
-                subArea.style.display = 'none';
                 currentSubCategory = "";
-                document.getElementById('detail-title').innerText = `${gradeId} 선생님의 연구 소감`;
+                subArea.style.display = 'none';
+                subArea.innerHTML = "";
             }
 
+            updateDetailTitle();
             window.setYear(1);
+            loadComments();
 
-            gradeDataList.forEach(item => {
-                const target = document.getElementById(`nav-${item.id}`);
-                if(target) target.classList.toggle('active', item.id === gradeId);
+            gradeDataList.forEach(it => {
+                const t = document.getElementById(`nav-${it.id}`);
+                if (t) t.classList.toggle('active', it.id === gradeId);
             });
             window.scrollTo(0, 0);
+        };
+
+        function renderSubButtons(item) {
+            const subArea = document.getElementById('sub-category-area');
+            subArea.innerHTML = item.subs.map(s =>
+                `<button class="sub-cat-btn ${s.key === currentSubCategory ? 'active' : ''}" onclick="setSubCategory('${s.key}')">${s.label}</button>`
+            ).join("");
         }
 
-        window.setSubCategory = function(subType) {
-            currentSubCategory = subType;
-            const subs = subCategoryTypes[currentGrade];
-            subs.forEach(sub => {
-                const btn = document.getElementById(`sub-cat-${sub}`);
-                if(btn) btn.classList.toggle('active', sub === subType);
-            });
-            document.getElementById('detail-title').innerText = `${currentGrade} (${currentSubCategory}) 연구 소감`;
+        function updateDetailTitle() {
+            const item = getCurrentItem();
+            const titleEl = document.getElementById('detail-title');
+            if (item && item.subs) {
+                titleEl.innerText = `${currentGrade} · ${currentSubCategory} 선생님의 연구 소감`;
+            } else {
+                titleEl.innerText = `${currentGrade} 선생님의 연구 소감`;
+            }
+        }
+
+        window.setSubCategory = function (subKey) {
+            currentSubCategory = subKey;
+            const item = getCurrentItem();
+            if (item) renderSubButtons(item);
+            updateDetailTitle();
             resetFlips();
             renderCards();
-            window.renderComments();
-        }
+            loadComments();
+        };
 
-        window.setYear = function(year) {
+        window.setYear = function (year) {
             currentYear = year;
             document.getElementById('tab-year1').classList.toggle('active', year === 1);
             document.getElementById('tab-year2').classList.toggle('active', year === 2);
             resetFlips();
             renderCards();
-            window.renderComments();
-        }
+        };
 
         function resetFlips() {
             document.querySelectorAll('.flip-card').forEach(card => card.classList.remove('flipped'));
@@ -1000,22 +1125,20 @@
         }
 
         function getDataNode() {
-            if (subCategoryTypes[currentGrade]) {
-                return exhibitionData[currentGrade][currentSubCategory][currentYear];
-            } else {
-                return exhibitionData[currentGrade][currentYear];
-            }
+            const item = getCurrentItem();
+            if (item && item.subs) return exhibitionData[currentGrade][currentSubCategory][currentYear];
+            return exhibitionData[currentGrade][currentYear];
         }
 
         function renderCards() {
             const data = getDataNode();
-            if(!data) return;
+            if (!data) return;
 
             ['pre', 'post'].forEach(type => {
                 const front = document.getElementById(`${type}-front`);
                 const textElem = document.getElementById(`${type}-text`);
                 const inputArea = document.getElementById(`${type}-input`);
-                
+
                 if (data[type] && data[type].img) {
                     front.innerHTML = `<img src="${data[type].img}" alt="포토보이스">`;
                 } else {
@@ -1025,44 +1148,47 @@
                             <span>이미지를 등록해주세요</span>
                         </div>`;
                 }
-                
+
                 const savedText = data[type] ? data[type].text : "";
                 textElem.innerText = savedText || "선생님의 소감이 아직 등록되지 않았습니다.";
-                if(inputArea) inputArea.value = savedText;
+                if (inputArea) inputArea.value = savedText;
             });
         }
 
-        window.toggleFlip = function(element, event) {
-            if(isAdmin && event.target.closest('.edit-controls')) return; 
+        window.toggleFlip = function (element, event) {
+            if (isAdmin && event.target.closest('.edit-controls')) return;
             element.classList.toggle('flipped');
-        }
+        };
 
-        window.speakText = function(type, event) {
+        window.speakText = function (type, event) {
             event.stopPropagation();
             const data = getDataNode();
             const text = data[type].text;
-            
+
             if (!text) return alert("읽어드릴 소감 텍스트가 없습니다.");
             if (!window.speechSynthesis) return alert("이 기기는 TTS 기능을 지원하지 않습니다.");
 
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ko-KR';
-            utterance.rate = 0.95; 
+            utterance.rate = 0.95;
+            const koVoice = window.speechSynthesis.getVoices().find(v => (v.lang || "").toLowerCase().startsWith("ko"));
+            if (koVoice) utterance.voice = koVoice;
             window.speechSynthesis.speak(utterance);
-        }
+        };
 
-        window.triggerAdminSystem = function() {
+        // ===== 관리자 =====
+        window.triggerAdminSystem = function () {
             const gearBtn = document.getElementById('gear-btn');
-            
+
             if (isAdmin) {
-                if(confirm("관리자 편집 모드를 해제하고 감상 모드로 돌아가시겠습니까?")) {
+                if (confirm("관리자 편집 모드를 해제하고 감상 모드로 돌아가시겠습니까?")) {
                     isAdmin = false;
                     gearBtn.classList.remove('active-mode');
                     document.querySelectorAll('.flip-card-back').forEach(card => card.classList.remove('edit-mode'));
                     document.querySelectorAll('.reflection-text').forEach(t => t.style.display = 'flex');
                     renderCards();
-                    window.renderComments(); // 댓글 관리자 버튼 숨기기 위함
+                    renderComments();
                 }
                 return;
             }
@@ -1071,53 +1197,50 @@
             if (password === "sp4268!!") {
                 isAdmin = true;
                 gearBtn.classList.add('active-mode');
-                alert("인증 완료! 카드를 뒤집어 실시간 데이터 수정 및 모든 댓글 관리가 가능합니다.");
+                alert("인증 완료! 카드를 뒤집어 데이터를 수정·저장·삭제할 수 있고, 모든 관람 소감을 관리할 수 있습니다.");
                 document.querySelectorAll('.flip-card-back').forEach(card => card.classList.add('edit-mode'));
                 document.querySelectorAll('.reflection-text').forEach(t => t.style.display = 'none');
                 renderCards();
-                window.renderComments(); // 댓글 관리자 버튼 활성화 위함
+                renderComments();
             } else if (password !== null) {
                 alert("비밀번호가 잘못되었습니다.");
             }
-        }
+        };
 
-        window.uploadImage = async function(type, inputElem) {
+        // 스토리지 업로드
+        window.uploadImage = async function (type, inputElem) {
             const file = inputElem.files[0];
             if (!file) return;
 
             alert("사진을 클라우드 서버로 업로드합니다. 잠시만 기다려주세요...");
-            
             try {
-                const subStr = currentSubCategory ? `_${currentSubCategory}` : "";
-                const filename = `images/${currentGrade}${subStr}_${currentYear}_${type}_${Date.now()}`;
+                const subTag = currentSubCategory || "공통";
+                const filename = `images/${currentGrade}_${subTag}_${currentYear}_${type}_${Date.now()}`;
                 const storageRef = ref(storage, filename);
-                
                 const snapshot = await uploadBytes(storageRef, file);
                 const downloadURL = await getDownloadURL(snapshot.ref);
-                
+
                 const data = getDataNode();
                 data[type].img = downloadURL;
-                renderCards(); 
-                
-                alert("✅ 업로드 완료! 반드시 [텍스트/이미지 서버에 저장] 버튼을 눌러야 반영됩니다.");
+                renderCards();
+                alert("✅ 업로드 완료! 반드시 하단의 [텍스트/이미지 서버에 저장] 버튼을 눌러야 완전히 반영됩니다.");
             } catch (error) {
                 console.error("업로드 에러:", error);
                 alert("사진 업로드 중 오류가 발생했습니다.");
             }
-        }
+        };
 
-        window.deleteImage = function(type) {
-            if(!confirm("등록된 이미지를 삭제하시겠습니까? (삭제 후 '저장'을 눌러야 반영됩니다)")) return;
+        window.deleteImage = function (type) {
+            if (!confirm("등록된 이미지를 삭제하시겠습니까? (삭제 후 '저장'을 눌러야 반영됩니다)")) return;
             const data = getDataNode();
-            data[type].img = ""; 
-            renderCards(); 
-        }
+            data[type].img = "";
+            renderCards();
+        };
 
-        window.saveData = async function(type) {
+        window.saveData = async function (type) {
             const textVal = document.getElementById(`${type}-input`).value;
             const data = getDataNode();
             data[type].text = textVal;
-            
             try {
                 const docRef = doc(db, "exhibition", "photovoiceData");
                 await setDoc(docRef, exhibitionData);
@@ -1127,129 +1250,194 @@
                 console.error("저장 에러:", error);
                 alert("데이터 저장 중 오류가 발생했습니다.");
             }
+        };
+
+        // ===== 관람 소감(댓글) =====
+        function escapeHtml(s) {
+            return (s || "").replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         }
 
-        // ---------- 댓글 기능 모듈 ----------
+        function formatTime(ts) {
+            if (!ts || typeof ts.toDate !== "function") return "방금 전";
+            const d = ts.toDate();
+            const diff = (Date.now() - d.getTime()) / 1000;
+            if (diff < 60) return "방금 전";
+            if (diff < 3600) return Math.floor(diff / 60) + "분 전";
+            if (diff < 86400) return Math.floor(diff / 3600) + "시간 전";
+            const m = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            return `${d.getFullYear()}.${m}.${day}`;
+        }
 
-        window.addComment = async function() {
-            const author = document.getElementById('comment-author').value.trim();
-            const password = document.getElementById('comment-password').value.trim();
-            const text = document.getElementById('comment-text').value.trim();
+        // 댓글 묶음 키(학년 + 하위선택)
+        function getCommentKey() {
+            const item = getCurrentItem();
+            if (item && item.subs) return `${currentGrade}__${currentSubCategory}`;
+            return currentGrade;
+        }
 
-            if(!author || !password || !text) {
-                alert("작성자, 비밀번호, 댓글 내용을 모두 입력해주세요.");
+        function loadComments() {
+            if (commentsUnsub) { commentsUnsub(); commentsUnsub = null; }
+            editingCommentId = null;
+            editingDraft = "";
+            const ci = document.getElementById('comment-input'); if (ci) ci.value = "";
+            const cn = document.getElementById('comment-name'); if (cn) cn.value = "";
+            updateCharCount();
+
+            const key = getCommentKey();
+            // where 단일 조건만 사용 → 별도 색인 불필요. 정렬은 클라이언트에서 처리.
+            const qy = query(collection(db, "comments"), where("gradeKey", "==", key));
+            commentsUnsub = onSnapshot(qy, (snap) => {
+                currentComments = [];
+                snap.forEach(d => currentComments.push({ id: d.id, ...d.data() }));
+                currentComments.sort((a, b) => {
+                    const ta = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : Number.MAX_SAFE_INTEGER;
+                    const tb = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : Number.MAX_SAFE_INTEGER;
+                    return tb - ta; // 최신순
+                });
+                renderComments();
+            }, (err) => { console.error("댓글 로딩 오류:", err); });
+        }
+
+        function renderComments() {
+            const listEl = document.getElementById('comment-list');
+            const countEl = document.getElementById('comment-count');
+            if (!listEl || !countEl) return;
+
+            countEl.innerText = currentComments.length;
+
+            if (currentComments.length === 0) {
+                listEl.innerHTML = `<div class="comment-empty">아직 등록된 관람 소감이 없습니다. 첫 소감을 남겨보세요! 😊</div>`;
                 return;
             }
 
-            const data = getDataNode();
-            if(!data.comments) data.comments = [];
+            listEl.innerHTML = currentComments.map(c => {
+                const canManage = isAdmin || c.authorId === visitorId;
+                const timeStr = formatTime(c.createdAt) + (c.editedAt ? " (수정됨)" : "");
 
-            const newComment = {
-                id: Date.now(),
-                author: author,
-                password: password,
-                text: text,
-                date: new Date().toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
-            };
+                if (c.id === editingCommentId) {
+                    return `
+                    <div class="comment-item">
+                        <div class="comment-head">
+                            <span class="comment-name">${escapeHtml(c.name || "익명")}</span>
+                            <span class="comment-time">${timeStr}</span>
+                        </div>
+                        <textarea class="comment-edit-area" maxlength="300" oninput="onEditInput(this)">${escapeHtml(editingDraft)}</textarea>
+                        <div class="comment-edit-actions">
+                            <button class="c-save" onclick="saveEditComment('${c.id}')">저장</button>
+                            <button class="c-cancel" onclick="cancelEdit()">취소</button>
+                            <span class="edit-count">${editingDraft.length} / 300</span>
+                        </div>
+                    </div>`;
+                }
 
-            data.comments.push(newComment);
-
-            try {
-                const docRef = doc(db, "exhibition", "photovoiceData");
-                await setDoc(docRef, exhibitionData);
-                
-                document.getElementById('comment-author').value = '';
-                document.getElementById('comment-password').value = '';
-                document.getElementById('comment-text').value = '';
-                
-                window.renderComments();
-                alert("소중한 댓글이 등록되었습니다!");
-            } catch (error) {
-                console.error(error);
-                alert("댓글 등록에 실패했습니다.");
-            }
-        }
-
-        window.renderComments = function() {
-            const data = getDataNode();
-            const commentList = document.getElementById('comment-list');
-            const comments = data.comments || [];
-
-            if(comments.length === 0) {
-                commentList.innerHTML = '<div style="text-align:center; color:#94a3b8; padding: 25px; font-size: 1.1rem;">아직 작성된 댓글이 없습니다. 첫 번째 응원의 글을 남겨주세요!</div>';
-                return;
-            }
-
-            commentList.innerHTML = comments.map(c => `
+                return `
                 <div class="comment-item">
-                    <div class="comment-header">
-                        <span class="comment-author">${c.author}</span>
-                        <span>${c.date}</span>
+                    <div class="comment-head">
+                        <span class="comment-name">${escapeHtml(c.name || "익명")}</span>
+                        <span class="comment-time">${timeStr}</span>
                     </div>
-                    <div class="comment-text">${c.text}</div>
+                    <div class="comment-text">${escapeHtml(c.text)}</div>
+                    ${canManage ? `
                     <div class="comment-actions">
-                        <button class="comment-btn" onclick="editComment(${c.id})">수정</button>
-                        <button class="comment-btn" onclick="deleteComment(${c.id})">삭제</button>
-                    </div>
-                </div>
-            `).reverse().join(''); // 최신 댓글이 위로 오도록 reverse 적용
+                        <button onclick="startEditComment('${c.id}')">✏️ 수정</button>
+                        <button class="c-del" onclick="deleteComment('${c.id}')">🗑️ 삭제</button>
+                    </div>` : ""}
+                </div>`;
+            }).join("");
         }
 
-        window.deleteComment = async function(id) {
-            const data = getDataNode();
-            const commentIndex = data.comments.findIndex(c => c.id === id);
-            if(commentIndex === -1) return;
+        window.updateCharCount = function () {
+            const ta = document.getElementById('comment-input');
+            const el = document.getElementById('char-now');
+            if (ta && el) el.innerText = ta.value.length;
+        };
 
-            const comment = data.comments[commentIndex];
+        window.insertEmoji = function (emoji) {
+            const ta = document.getElementById('comment-input');
+            if (!ta) return;
+            const start = ta.selectionStart, end = ta.selectionEnd;
+            const val = ta.value;
+            let next = val.slice(0, start) + emoji + val.slice(end);
+            if (next.length > 300) next = next.slice(0, 300);
+            ta.value = next;
+            ta.focus();
+            const pos = Math.min(start + emoji.length, 300);
+            ta.setSelectionRange(pos, pos);
+            updateCharCount();
+        };
 
-            if(!isAdmin) {
-                const pwd = prompt("댓글 삭제를 위해 작성 시 설정한 비밀번호를 입력해주세요:");
-                if(pwd !== comment.password) {
-                    if(pwd !== null) alert("비밀번호가 일치하지 않습니다.");
-                    return;
-                }
+        window.submitComment = async function () {
+            const nameInput = document.getElementById('comment-name');
+            const textInput = document.getElementById('comment-input');
+            const text = textInput.value.trim();
+
+            if (!text) { alert("소감 내용을 입력해 주세요."); return; }
+            if (text.length > 300) { alert("소감은 300자 이내로 작성해 주세요."); return; }
+
+            const name = (nameInput.value.trim() || "익명").slice(0, 20);
+            try {
+                await addDoc(collection(db, "comments"), {
+                    gradeKey: getCommentKey(),
+                    name: name,
+                    text: text,
+                    authorId: visitorId,
+                    createdAt: serverTimestamp()
+                });
+                textInput.value = "";
+                nameInput.value = "";
+                updateCharCount();
+            } catch (e) {
+                console.error("댓글 등록 오류:", e);
+                alert("소감 등록 중 오류가 발생했습니다.");
             }
+        };
 
-            if(confirm("댓글을 정말 삭제하시겠습니까?")) {
-                data.comments.splice(commentIndex, 1);
-                try {
-                    const docRef = doc(db, "exhibition", "photovoiceData");
-                    await setDoc(docRef, exhibitionData);
-                    window.renderComments();
-                } catch (e) {
-                    alert("삭제 중 오류가 발생했습니다.");
-                }
+        window.startEditComment = function (id) {
+            const c = currentComments.find(x => x.id === id);
+            if (!c) return;
+            editingCommentId = id;
+            editingDraft = c.text || "";
+            renderComments();
+        };
+
+        window.onEditInput = function (el) {
+            editingDraft = el.value;
+            const cnt = el.parentElement.querySelector('.edit-count');
+            if (cnt) cnt.innerText = `${el.value.length} / 300`;
+        };
+
+        window.cancelEdit = function () {
+            editingCommentId = null;
+            editingDraft = "";
+            renderComments();
+        };
+
+        window.saveEditComment = async function (id) {
+            const text = (editingDraft || "").trim();
+            if (!text) { alert("내용을 입력해 주세요."); return; }
+            if (text.length > 300) { alert("소감은 300자 이내로 작성해 주세요."); return; }
+            try {
+                await updateDoc(doc(db, "comments", id), { text: text, editedAt: serverTimestamp() });
+                editingCommentId = null;
+                editingDraft = "";
+            } catch (e) {
+                console.error("댓글 수정 오류:", e);
+                alert("수정 중 오류가 발생했습니다.");
             }
-        }
+        };
 
-        window.editComment = async function(id) {
-            const data = getDataNode();
-            const commentIndex = data.comments.findIndex(c => c.id === id);
-            if(commentIndex === -1) return;
-
-            const comment = data.comments[commentIndex];
-
-            if(!isAdmin) {
-                const pwd = prompt("댓글 수정을 위해 작성 시 설정한 비밀번호를 입력해주세요:");
-                if(pwd !== comment.password) {
-                    if(pwd !== null) alert("비밀번호가 일치하지 않습니다.");
-                    return;
-                }
+        window.deleteComment = async function (id) {
+            if (!confirm("이 소감을 삭제하시겠습니까?")) return;
+            try {
+                await deleteDoc(doc(db, "comments", id));
+            } catch (e) {
+                console.error("댓글 삭제 오류:", e);
+                alert("삭제 중 오류가 발생했습니다.");
             }
+        };
 
-            const newText = prompt("수정할 댓글 내용을 입력해주세요 (최대 300자):", comment.text);
-            if(newText !== null && newText.trim() !== "") {
-                comment.text = newText.substring(0, 300); // 300자 제한 강제
-                try {
-                    const docRef = doc(db, "exhibition", "photovoiceData");
-                    await setDoc(docRef, exhibitionData);
-                    window.renderComments();
-                } catch (e) {
-                    alert("수정 중 오류가 발생했습니다.");
-                }
-            }
-        }
-
+        // 웹앱 실행
         window.onload = loadDataFromFirebase;
     </script>
 </body>
